@@ -79,7 +79,6 @@ def create_group():
     try:
         name = request.form['name']
         res = mongo.MongoDB().set_group(name)
-        print(res)
         return redirect(url_for('groups'))
     except Exception as e:
         print(e)
@@ -91,7 +90,6 @@ def groups():
         if session.get("user"):
             res = mongo.MongoDB().groups_list()
             access_right = get_access_user()
-            
             return render_template('group.html',groups=res,user=session['user'],is_admin = access_right)
         else:
             return render_template('login.html', error = "Your Session Expired")
@@ -133,7 +131,6 @@ def users():
 
 @app.route('/home', methods=['GET', 'POST'])
 def home():
-    
     try:
         session['user'] = request.form['username']
         session['password'] = request.form['password']
@@ -145,7 +142,6 @@ def home():
             return render_template('dashboard.html', user=session['user'],is_admin = access_right)
         else:
             return render_template('login.html', error = "Invalid Username or Password")
-        
     except Exception as e:
         print(e)
 
@@ -157,7 +153,6 @@ def get_access_user():
             access_right = False
         else:
             access_right = True
-            
         return access_right
     except Exception as e:
         print(e)
@@ -165,8 +160,11 @@ def get_access_user():
 
 @app.route('/dashboard')
 def dashboard():
-    access_right = get_access_user()
-    return render_template('dashboard.html', user=session['user'],is_admin = access_right)
+    if session.get("user"):
+        access_right = get_access_user()
+        return render_template('dashboard.html', user=session['user'],is_admin = access_right)
+    else:
+        return render_template('login.html', error = "Your Session Expired")
 
 
 @app.route("/logout")
@@ -174,6 +172,11 @@ def logout():
     session.pop('username', None)
     session.pop('password', None)
     return render_template('login.html')
+
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
 
 
 @app.route('/login')
