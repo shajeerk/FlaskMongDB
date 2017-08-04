@@ -35,7 +35,7 @@
                             <h1 style="height: 110px;>
 								<a href="#"> <img
 									src="{{ url_for('static', filename='img/flask.jpg') }}"
-									height="150" width="150" alt="HCL" />
+									height="150" width="150" alt="Flask" />
 								</a>
 							</h1>
                         </div>
@@ -45,7 +45,8 @@
                     <div class="pull-right" style="height: 50px; padding-top: 60px;>
                         <ul class="menu">
                             {% if user %}
-                            <a>{{user}}<a>&nbsp;&nbsp;&nbsp;&nbsp; <a href="{{ url_for('logout') }}"> <span class="glyphicon glyphicon-log-out"></span> Log out </a></a>
+                            	<img src="{{ url_for('static', filename='img/user.jpg') }}" alt="User" width="30" height="30">
+                            	<a>{{user}}<a>&nbsp;&nbsp;&nbsp;&nbsp; <a href="{{ url_for('logout') }}"> <span class="glyphicon glyphicon-log-out"></span> Log out </a></a>
                             {% endif %}
                         </ul>
                     </div>
@@ -68,6 +69,7 @@
                                 {% endif %}
                                 <li><a href="{{ url_for('collections') }}">Collection</a></li>
                                 <li><a href="{{ url_for('collections_status') }}">Collection Status</a></li>
+                                <li><a href="{{ url_for('account') }}">My Account</a></li>
                             </ul>
                         </div>
                         <!-- /.list-menu -->

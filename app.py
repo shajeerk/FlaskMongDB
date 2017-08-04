@@ -44,6 +44,28 @@ def create_collection():
         print(e)
 
 
+@app.route('/account')
+def account():
+    access_right = get_access_user()
+    return render_template('account.html',user=session['user'],is_admin = access_right)
+
+
+@app.route('/account_update', methods=['GET', 'POST'])
+def account_update():
+    try:
+        if session.get("user"):
+            oldpass = request.form["oldpass"]
+            newpass = request.form["newpass"]
+            res = mongo.MongoDB().update_password(session['user'],oldpass,newpass)
+            if res:
+                return redirect(url_for('logout'))
+            else:
+                return render_template('account.html', error = "Please enter correct Old password")
+        else:
+            return render_template('login.html', error = "Your Session Expired")
+    except Exception as e:
+        print(e)
+
 @app.route('/collections')
 def collections():
     try:

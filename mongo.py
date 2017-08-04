@@ -125,3 +125,15 @@ class MongoDB:
         except Exception as e:
             print(e)
         return True
+    
+    
+    def update_password(self,user,oldpass,newpass):
+        try:
+            res = self.db.users.find_one({"password":str(oldpass)})
+            if res:
+                result = self.db.users.update({ "username": user },{"$set":{"password": newpass}})
+                return True
+            else:
+                return False
+        except Exception as e:
+            print(e)

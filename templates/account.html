@@ -14,7 +14,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Groups</title>
+    <title>My Account</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,200,400,500,600" rel="stylesheet">
@@ -69,9 +69,9 @@
                                 <li><a href="{{ url_for('groups') }}">Groups</a></li>
                                 <li><a href="{{ url_for('users') }}">Users</a></li>
                                 {% endif %}
-                                 <li><a href="{{ url_for('collections') }}">Collection</a></li>
-                                 <li><a href="{{ url_for('collections_status') }}">Collection Status</a></li>
-                                 <li><a href="{{ url_for('account') }}">My Account</a></li>
+                                <li><a href="{{ url_for('collections') }}">Collection</a></li>
+                                <li><a href="{{ url_for('collections_status') }}">Collection Status</a></li>
+                                <li><a href="{{ url_for('account') }}">My Account</a></li>
                             </ul>
                         </div>
                         <!-- /.list-menu -->
@@ -87,17 +87,26 @@
     <!-- /.site-header -->
     <div class="row">
         <div class="container">
-            <form action="{{ url_for('create_group') }}" method="post">
+                     
+                            {% if error %}
+                            <p class="error"><strong>{{ error }}</strong></p>
+                            {% endif %}
+
+            <form action="{{ url_for('account_update') }}" method="post">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <span class="heading">Add New Groups</span>
+                                <span class="heading">Update Password</span>
                             </div>
                             <div class="panel-body grey-color">
                                 <div class="row">
-                                    <label><b style="padding-left: 20px; color: black;">Group Name</b></label>
-                                    <input type="text" name="name" style="width: 322px;" required>
+                                    <label><b style="padding-left: 20px; color: black;">Current Password</b></label>
+                                    <input type="text" name="oldpass" style="width: 322px;" required>
+                                    
+                                    <label><b style="padding-left: 20px; color: black;">New Password</b></label>
+                                    <input type="text" name="newpass" style="width: 322px;" required>   <br><br>                             
+                                  
                                     <button type="submit" class="signupbtn">submit</button>
                                 </div>
                             </div>
@@ -105,32 +114,6 @@
                     </div>
                 </div>
             </form>
-
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <span class="heading">Existing Groups</span>
-                </div>
-                <div class="panel-body grey-color">
-                    <div class="row">
-                        <table class="table table-striped" id="myTable">
-                            <thead>
-                                <tr>
-                                    <th>Instance Name</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                {% for value in groups %}
-                                <tr>
-                                    <ul>{{value}}</ul>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 
