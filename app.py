@@ -116,6 +116,17 @@ def groups():
             return render_template('login.html', error = "Your Session Expired")
     except Exception as e:
         print(e)
+        
+
+@app.route('/update_group', methods=['GET', 'POST'])
+def update_group():
+    try:
+        if request.form:
+            groups = request.form.getlist('chk')
+            res = mongo.MongoDB().delete_group(groups)
+        return redirect(url_for('groups'))
+    except Exception as e:
+        print(e)
 
 
 @app.route('/create_user', methods=['GET', 'POST'])

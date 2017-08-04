@@ -112,22 +112,19 @@
                 </div>
                 <div class="panel-body grey-color">
                     <div class="row">
-                        <table class="table table-striped" id="myTable">
-                            <thead>
-                                <tr>
-                                    <th>Instance Name</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                {% for value in groups %}
-                                <tr>
-                                    <ul>{{value}}</ul>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-
+ 						<form action="{{ url_for('update_group') }}" method="post">
+						<table id="table table-striped" width="350px" border="0">
+						 	{% for value in groups %}
+							<tr>
+								<td><input type="checkbox" name="chk" value={{value}} /></td>
+								<td><input type="text" value={{value}} name="value" readonly/></td>
+							</tr>
+							
+							{% endfor %}
+						</table>
+						<br>
+						<button type="submit" class="signupbtn">Delete</button>
+						</form>
                     </div>
                 </div>
             </div>

@@ -66,6 +66,15 @@ class MongoDB:
             return res
         except Exception as e:
             print(e)
+            
+            
+    def delete_group(self,val):
+        try:
+            for i in val:
+                res = self.db.groups.remove({"name":str(i)})
+            return True
+        except Exception as e:
+            print(e)
     
     
     def set_group(self,group):
