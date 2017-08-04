@@ -25,7 +25,6 @@ class MongoDB:
     
     
     def set_user(self,val):
-        
         try:
             res = self.check_user(val.get("username"),val.get("password"))
             if not res:
@@ -34,7 +33,6 @@ class MongoDB:
                 return "user already exits"
         except Exception as e:
             print(e)
-                
         return True
     
     
@@ -45,7 +43,6 @@ class MongoDB:
             for i in res:
                 l1.append(i['name'])
             return l1
-                
         except Exception as e:
             print(e)
             
@@ -72,7 +69,6 @@ class MongoDB:
     
     
     def set_group(self,group):
-        
         try:
             res = self.check_group(group)
             if not res:
@@ -84,7 +80,6 @@ class MongoDB:
                 return "group already exits"
         except Exception as e:
             print(e)
-                
         return True
     
     
@@ -121,7 +116,6 @@ class MongoDB:
     
     
     def set_collection(self,val):
-        
         try:
             res = self.check_collection(val.get("phone"))
             if not res:
@@ -130,5 +124,4 @@ class MongoDB:
                 return "Phone already exists"
         except Exception as e:
             print(e)
-                
         return True

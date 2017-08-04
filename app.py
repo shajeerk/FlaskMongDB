@@ -8,7 +8,6 @@ app.config.from_pyfile('config.cfg')
 app.secret_key = os.urandom(12)
 
 
-
 @app.route('/create_collection', methods=['GET', 'POST'])
 def create_collection():
     try:
@@ -191,6 +190,5 @@ def index():
 
 
 if __name__ == "__main__":
-
     app.config['TEMPLATES_AUTO_RELOAD'] = True
     app.run(debug=True, host='10.161.113.156', port=9000, threaded=True)
