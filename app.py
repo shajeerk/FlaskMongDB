@@ -123,8 +123,19 @@ def update_group():
     try:
         if request.form:
             groups = request.form.getlist('chk')
-            res = mongo.MongoDB().delete_group(groups)
+            res = mongo.MongoDB().delete_groups(groups)
         return redirect(url_for('groups'))
+    except Exception as e:
+        print(e)
+        
+
+@app.route('/update_user', methods=['GET', 'POST'])
+def update_user():
+    try:
+        if request.form:
+            users = request.form.getlist('chk')
+            res = mongo.MongoDB().delete_users(users)
+        return redirect(url_for('users'))
     except Exception as e:
         print(e)
 

@@ -83,13 +83,24 @@
         </div>
         <!-- /.container -->
         <!-- /.main-nav -->
+        
+
+        <style>
+			table, th, td {
+    		border: 1px solid black;
+    		padding-left: 10px;
+    		padding-right: 10px;
+    		text-align: center;
+			}
+	   </style>
+
     </header>
     <!-- /.site-header -->
     <div class="row">
         <div class="container">
             <form action="{{ url_for('create_group') }}" method="post">
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-12" style="padding-left: 11px;">
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <span class="heading">Add New Groups</span>
@@ -113,7 +124,13 @@
                 <div class="panel-body grey-color">
                     <div class="row">
  						<form action="{{ url_for('update_group') }}" method="post">
-						<table id="table table-striped" width="350px" border="0">
+						<table id="table table-striped" width="350px">
+						
+						            <tr>
+                             			<th>Select</th>
+	                                    <th>Name</th>
+								  </tr>
+						
 						 	{% for value in groups %}
 							<tr>
 								<td><input type="checkbox" name="chk" value={{value}} /></td>

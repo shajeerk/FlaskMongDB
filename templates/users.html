@@ -83,13 +83,22 @@
         </div>
         <!-- /.container -->
         <!-- /.main-nav -->
+        
+        <style>
+			table, th, td {
+    		border: 1px solid black;
+    		padding-left: 10px;
+    		padding-right: 10px;
+    		text-align: center;
+			}
+	   </style>
     </header>
     <!-- /.site-header -->
     <div class="row">
         <div class="container">
             <form action="{{ url_for('create_user') }}" method="post">
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-12" style="padding-left: 11px;">
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <span class="heading">Add New Users</span>
@@ -100,7 +109,7 @@
                                     <input type="text" name="username" style="width: 322px;" required>
 
                                     <label><b style="padding-left: 20px; color: black;">Password</b></label>
-                                    <input type="text" name="password" style="width: 322px;" required>
+                                    <input type="password" name="password" style="width: 322px;" required>
                                     <br>
                                     <br>
 
@@ -131,22 +140,33 @@
                     <span class="heading">Existing Users</span>
                 </div>
                 <div class="panel-body grey-color">
-                    <div class="row">
-                        <table class="table table-striped" id="myTable">
-                            <thead>
+                    <div class="row" style="padding-left: 25px;">
+                        <form action="{{ url_for('update_user') }}" method="post">
+						<table id="table table-striped" width="350px">
+                             	  <tr>
+                             			<th>Select</th>
+	                                    <th>UserName</th>
+	                                    <th>Group</th>
+	                                    <th>Password</th>
+	                                    <th>IsAdmin</th>
+								  </tr>
+								  
+ 								{% for value in users %}
                                 <tr>
-                                    <th>Instance Name</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                {% for value in users %}
-                                <tr>
-                                    <ul>{{value}}</ul>
+                                	
+                                	{% for k,v in value.iteritems() %}
+                                	{% if k == 'username' %}
+                                		<td><input type="checkbox" name="chk" value={{v}} /></td>
+                                	{% endif %}
+                                    <td>{{v}}</td>
+                                    {% endfor %}
                                 </tr>
                                 {% endfor %}
-                            </tbody>
-                        </table>
+
+						</table>
+						<br>
+						<button type="submit" class="signupbtn">Delete</button>
+						</form>
 
                     </div>
                 </div>
