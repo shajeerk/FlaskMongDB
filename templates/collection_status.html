@@ -81,76 +81,10 @@
         <!-- /.main-nav -->
     </header>
     <!-- /.site-header -->
-    <div class="row">
-        <div class="container">
-            <form action="{{ url_for('create_collection') }}" method="post">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <span class="heading">Add New Collection</span>
-                            </div>
-                            <div class="panel-body grey-color">
-                                <div class="row">
-                                    <label><b style="padding-left: 20px; color: black;">Name</b></label>
-                                    <input type="text" name="name" style="width: 322px;" required>
-                                    
-                                    <label><b style="padding-left: 20px; color: black;">Address</b></label>
-                                    <input type="text" name="address" style="width: 322px;" required>   <br><br>                             
-                                    
-                                    <label><b style="padding-left: 20px; color: black;">Phone</b></label>
-                                    <input type="text" name="phone" style="width: 322px;" required>
-                                    
-                                    
-                                    
-                                    <label><b style="padding-left: 20px; color: black;">Offer Amount</b></label>
-                                    <input type="text" name="offer_amt" style="width: 322px;" required><br><br> 
-                                    
-                                    
-                                    <label><b style="padding-left: 20px; color: black;">C1-Care Of</b></label>
-                                    <input type="text" name="c1_care_of" style="width: 322px;" required>
-                                    
-                                    
-                                    <label><b style="padding-left: 20px; color: black;">C1-Collected Amount</b></label>
-                                    <input type="text" name="c1_collected_amt" style="width: 322px;" required><br><br> 
-                                    
-                                    
-                                     <label><b style="padding-left: 20px; color: black;">C2-Care Of</b></label>
-                                    <input type="text" name="c2_care_of" style="width: 322px;" required>                                    
-                                    
-                                    
-                                    <label><b style="padding-left: 20px; color: black;">C2-Collected Amount</b></label>
-                                    <input type="text" name="c2_collected_amt" style="width: 322px;" required><br><br>
-                                    
-                                    
-                                     <label><b style="padding-left: 20px; color: black;">Payment Mode</b></label>
-                                    <input type="text" name="payment_mode" style="width: 322px;" required>
-                                    
-                                    
-                                    <label><b style="padding-left: 20px; color: black;">Remarks</b></label>
-                                    <input type="text" name="remarks" style="width: 322px;" required><br><br> 
-                                    
-                                    
-                                    <label><b style="padding-left: 20px; color: black;">Group Name</b></label>
-
-                                    <select style="width: 150px;" name="group">
-                                        <option value=none>Select Group</option>
-                                        {% for value in groups %}
-                                        <option value={{value}}>{{value}}</option>
-                                        {% endfor %}
-                                    </select>
-                                    
-                                    <button type="submit" class="signupbtn">submit</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
 
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <span class="heading">Existing Collection</span>
+                    <span class="heading">Collection Status</span>
                 </div>
                 <div class="panel-body grey-color">
                     <div class="row">

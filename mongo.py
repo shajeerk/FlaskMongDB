@@ -38,7 +38,7 @@ class MongoDB:
         return True
     
     
-    def group_list(self):
+    def groups_list(self):
         l1 = []
         try:
             res = self.db.groups.find({}, {"_id":0})
@@ -86,6 +86,38 @@ class MongoDB:
             print(e)
                 
         return True
+    
+    
+    def collections_list(self,user):
+        l1 = []
+        try:
+            res = self.db.collections.find({"user":user}, {"_id":0})
+            for i in res:
+                l1.append(i)
+            return l1
+                
+        except Exception as e:
+            print(e)
+            
+            
+    def collections_status(self,user):
+        l1 = []
+        try:
+            res = self.db.collections.find({"user":user}, {"name":1,"phone":1,"c1_care_of":1,"c1_collected_amt":1,"c2_care_of":1,"c2_collected_amt":1,"_id":0})
+            for i in res:
+                l1.append(i)
+            return l1
+                
+        except Exception as e:
+            print(e)    
+    
+    
+    def check_collection(self,phone):
+        try:
+            res = self.db.collections.find_one({"phone":str(phone)})
+            return res
+        except Exception as e:
+            print(e)
     
     
     def set_collection(self,val):

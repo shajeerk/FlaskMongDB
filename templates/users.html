@@ -29,22 +29,22 @@
 
 <body>
     <header class="site-header">
-        <div class="main-header">
+        <div class="main-header" style="padding-top: 0px;padding-bottom: 0px; height: 120px;">
             <div class="container">
                 <div class="row">
                     <div class="col-md-4 col-sm-6 col-xs-8">
                         <div class="logo">
-                            <h1>
+                            <h1 style="height: 110px;>
                                     <a href="#"> <img
-                                       src="{{ url_for('static', filename='img/hcl.jpg') }}"
-                                       height="50" width="150" alt="HCL" />
+                                       src="{{ url_for('static', filename='img/flask.jpg') }}"
+                                       height="150" width="150" alt="HCL" />
                                     </a>
                                  </h1>
                         </div>
                         <!-- /.logo -->
                     </div>
                     <!-- /.col-md-4 -->
-                    <div class="pull-right">
+                    <div class="pull-right" style="height: 50px; padding-top: 60px;>
                         <ul class="menu">
                             <a>{{user}}<a>&nbsp;&nbsp;&nbsp;&nbsp; <a href="{{ url_for('logout') }}"> <span class="glyphicon glyphicon-log-out"></span> Log out </a></a>
                         </ul>
@@ -62,9 +62,12 @@
                         <div class="list-menu">
                             <ul>
                                 <li><a href="{{ url_for('dashboard') }}">My Dashboard</a></li>
+                                {% if is_admin %}
                                 <li><a href="{{ url_for('groups') }}">Groups</a></li>
                                 <li><a href="{{ url_for('users') }}">Users</a></li>
+                                {% endif %}
                                 <li><a href="{{ url_for('collections') }}">Collection</a></li>
+                                <li><a href="{{ url_for('collections_status') }}">Collection Status</a></li>
                             </ul>
                         </div>
                         <!-- /.list-menu -->

@@ -17,8 +17,10 @@ def create_collection():
         group = request.form["group"]
         phone = request.form.get("phone")
         offer_amt = request.form.get("offer_amt")
-        collected_amt = request.form.get("collected_amt")
-        care_of = request.form.get("care_of")
+        c1_care_of = request.form.get("c1_care_of")
+        c1_collected_amt = request.form.get("c1_collected_amt")
+        c2_care_of = request.form.get("c2_care_of")
+        c2_collected_amt = request.form.get("c2_collected_amt")
         payment_mode = request.form.get("payment_mode")
         remarks = request.form.get("remarks")
     
@@ -28,10 +30,13 @@ def create_collection():
             "group":str(group),
             "phone":str(phone),
             "offer_amt":str(offer_amt),
-            "collected_amt":str(collected_amt),
-            "care_of":str(care_of),
+            "c1_care_of":str(c1_care_of),
+            "c1_collected_amt":str(c1_collected_amt),
+            "c2_care_of":str(c2_care_of),            
+            "c2_collected_amt":str(c2_collected_amt),
             "payment_mode":str(payment_mode),
-            "remarks":str(remarks),            
+            "remarks":str(remarks),
+            "user":session.get("user")            
         }
         res = mongo.MongoDB().set_collection(val)
         print(res)
@@ -44,9 +49,25 @@ def create_collection():
 def collections():
     try:
         if session.get("user"):
-            grouplist = mongo.MongoDB().group_list()
-            res = None #mongo.MongoDB().collection_list()
-            return render_template('collection.html',collections=res,groups=grouplist,user=session['user'])
+            grouplist = mongo.MongoDB().groups_list()
+            res = mongo.MongoDB().collections_list(session.get("user"))
+            access_right = get_access_user()
+            
+            return render_template('collection.html',collections=res,groups=grouplist,user=session['user'],is_admin = access_right)
+        else:
+            return render_template('login.html', error = "Your Session Expired")
+    except Exception as e:
+        print(e)
+        
+        
+@app.route('/collections_status')
+def collections_status():
+    try:
+        if session.get("user"):
+            res = mongo.MongoDB().collections_status(session.get("user"))
+            access_right = get_access_user()
+            
+            return render_template('collection_status.html',collections=res,user=session['user'],is_admin = access_right)
         else:
             return render_template('login.html', error = "Your Session Expired")
     except Exception as e:
@@ -68,8 +89,10 @@ def create_group():
 def groups():
     try:
         if session.get("user"):
-            res = mongo.MongoDB().group_list()
-            return render_template('group.html',groups=res,user=session['user'])
+            res = mongo.MongoDB().groups_list()
+            access_right = get_access_user()
+            
+            return render_template('group.html',groups=res,user=session['user'],is_admin = access_right)
         else:
             return render_template('login.html', error = "Your Session Expired")
     except Exception as e:
@@ -97,9 +120,11 @@ def create_user():
 def users():
     try:
         if session.get("user"):
-            grouplist = mongo.MongoDB().group_list()
+            grouplist = mongo.MongoDB().groups_list()
             user_list = mongo.MongoDB().users_list()
-            return render_template('users.html',users=user_list,groups=grouplist,user=session['user'])
+            access_right = get_access_user()
+            
+            return render_template('users.html',users=user_list,groups=grouplist,user=session['user'],is_admin = access_right)
         else:
             return render_template('login.html', error = "Your Session Expired")
     except Exception as e:
