@@ -81,6 +81,15 @@
                 <!-- /.row -->
             </div>
         </div>
+        
+        <style>
+			table, th, td {
+    		border: 1px solid black;
+    		padding-left: 10px;
+    		padding-right: 10px;
+    		text-align: center;
+			}
+	   </style>
         <!-- /.container -->
         <!-- /.main-nav -->
     </header>
@@ -91,23 +100,28 @@
                 <div class="panel-heading">
                     <span class="heading">Collection Status</span>
                 </div>
-                <div class="panel-body grey-color">
+                <div class="panel-body grey-color" style="padding-left: 40px;>
                     <div class="row">
-                        <table class="table table-striped" id="myTable">
-                            <thead>
+                     	<table id="table table-striped" width="350px">
+                             	  <tr>
+                             			<th>Name</th>
+	                                    <th>C2-Collected Amount</th>
+	                                    <th>C2-CareOf</th>
+	                                    <th>C1-Collected Amount</th>
+	                                    <th>Phone</th>
+	                                    <th>C1-CareOf</th>
+								  </tr>
+								  
+ 								{% for value in collections %}
                                 <tr>
-                                    <th>Instance Name</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                {% for value in collections %}
-                                <tr>
-                                    <ul>{{value}}</ul>
+                                	{% for k,v in value.iteritems() %}
+                                    <td>{{v}}</td>
+                                    {% endfor %}
                                 </tr>
                                 {% endfor %}
-                            </tbody>
-                        </table>
+
+						</table>
+                        
 
                     </div>
                 </div>
