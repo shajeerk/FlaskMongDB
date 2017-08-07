@@ -38,7 +38,6 @@ def create_collection():
             "user":session.get("user")            
         }
         res = mongo.MongoDB().set_collection(val)
-        print(res)
         return redirect(url_for('collections'))
     except Exception as e:
         print(e)
@@ -65,6 +64,7 @@ def account_update():
             return render_template('login.html', error = "Your Session Expired")
     except Exception as e:
         print(e)
+        
 
 @app.route('/collections')
 def collections():
@@ -128,6 +128,18 @@ def update_group():
     except Exception as e:
         print(e)
         
+        
+@app.route('/update_collection', methods=['GET', 'POST'])
+def update_collection():
+    try:
+        if request.form:
+            collections = request.form.getlist('chk')
+            print(collections)
+            res = mongo.MongoDB().delete_collections(collections)
+        return redirect(url_for('collections'))
+    except Exception as e:
+        print(e)
+        
 
 @app.route('/update_user', methods=['GET', 'POST'])
 def update_user():
@@ -164,14 +176,14 @@ def users():
             grouplist = mongo.MongoDB().groups_list()
             user_list = mongo.MongoDB().users_list()
             access_right = get_access_user()
-            
+             
             return render_template('users.html',users=user_list,groups=grouplist,user=session['user'],is_admin = access_right)
         else:
             return render_template('login.html', error = "Your Session Expired")
     except Exception as e:
         print(e)
-
-
+        
+        
 @app.route('/home', methods=['GET', 'POST'])
 def home():
     try:

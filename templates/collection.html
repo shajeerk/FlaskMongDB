@@ -83,6 +83,15 @@
         </div>
         <!-- /.container -->
         <!-- /.main-nav -->
+        
+       <style>
+			table, th, td {
+    		border: 1px solid black;
+    		padding-left: 10px;
+    		padding-right: 10px;
+    		text-align: center;
+			}
+	   </style>
     </header>
     <!-- /.site-header -->
     <div class="row">
@@ -151,34 +160,56 @@
                     </div>
                 </div>
             </form>
-
-            <div class="panel panel-default">
+               <div class="panel panel-default">
                 <div class="panel-heading">
-                    <span class="heading">Existing Collection</span>
+                    <span class="heading">Existing Groups</span>
                 </div>
                 <div class="panel-body grey-color">
                     <div class="row">
-                        <table class="table table-striped" id="myTable">
-                            <thead>
-                                <tr>
-                                    <th>Instance Name</th>
-                                </tr>
-                            </thead>
+ 						 <form action="{{ url_for('update_collection') }}" method="post">
+						<table id="table table-striped" width="350px">
 
-                            <tbody>
-                                {% for value in collections %}
-                                <tr>
-                                    <ul>{{value}}</ul>
+								<tr>
+									<th>Select</th>
+									<th>Name</th>
+									<th>Address</th>
+									<th>Phone</th>
+									<th>Offer Amount</th>
+									<th>C1-CareOf</th>
+									<th>C1-Collected Amount</th>
+									<th>C2-CareOf</th>
+									<th>C2-Collected Amount</th>
+									<th>Payment Mode</th>
+									<th>Remarks</th>
+									<th>Group Name</th>
+
+								</tr>
+
+								{% for value in collections %}
+       							<tr>
+       								<td><input type="checkbox" name="chk" value={{value.get('phone')}} /></td>
+                                    <td>{{value.get('name')}}</td>
+                                    <td>{{value.get('address')}}</td>
+                                    <td>{{value.get('phone')}}</td>
+                                    <td>{{value.get('offer_amt')}}</td>
+                                    <td>{{value.get('c1_care_of')}}</td>
+                                    <td>{{value.get('c1_collected_amt')}}</td>
+                                    <td>{{value.get('c2_care_of')}}</td>
+                                    <td>{{value.get('c2_collected_amt')}}</td>
+                                    <td>{{value.get('payment_mode')}}</td>
+                                    <td>{{value.get('remarks')}}</td>
+                                    <td>{{value.get('group')}}</td>
                                 </tr>
                                 {% endfor %}
-                            </tbody>
-                        </table>
 
+						</table>
+						<br>
+						<button type="submit" class="signupbtn">Delete</button>
+						</form>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+           
 
     <div>
     </div>

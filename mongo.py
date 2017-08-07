@@ -84,7 +84,16 @@ class MongoDB:
             return True
         except Exception as e:
             print(e)
-    
+            
+            
+    def delete_collections(self,val):
+        try:
+            for i in val:
+                res = self.db.collections.remove({"phone":str(i)})
+            return True
+        except Exception as e:
+            print(e)
+            
     
     def set_group(self,group):
         try:
