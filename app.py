@@ -100,7 +100,12 @@ def create_group():
     try:
         name = request.form['name']
         res = mongo.MongoDB().set_group(name)
-        return redirect(url_for('groups'))
+        groups_list = mongo.MongoDB().groups_list()
+        access_right = get_access_user()
+        if res:
+            return redirect(url_for('groups'))
+        else:
+            return render_template("group.html",warning=True,groups=groups_list,user=session['user'],is_admin = access_right)
     except Exception as e:
         print(e)
         

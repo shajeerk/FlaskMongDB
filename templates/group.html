@@ -91,13 +91,43 @@
     		padding-left: 10px;
     		padding-right: 10px;
     		text-align: center;
+    		
+    		
 			}
+			
+			.alert {
+    padding: 20px;
+    background-color: #f44336;
+    margin-top: 20px;
+    color: white;
+}
+
+.closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.closebtn:hover {
+    color: black;
+}
 	   </style>
 
     </header>
     <!-- /.site-header -->
     <div class="row">
         <div class="container">
+        {% if warning %}
+	        <div class="alert">
+	  			<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+	  			<strong style="color: #3c0606;">Warning!</strong> Group Name already exits .
+			</div>
+		{% endif %}
             <form action="{{ url_for('create_group') }}" method="post">
                 <div class="row">
                     <div class="col-md-12" style="padding-left: 11px;">
@@ -109,7 +139,7 @@
                                 <div class="row">
                                     <label><b style="padding-left: 20px; color: black;">Group Name</b></label>
                                     <input type="text" name="name" style="width: 322px;" required>
-                                    <button type="submit" class="signupbtn">submit</button>
+                                    <button type="submit" class="signupbtn" style="margin-left:20px">submit</button>
                                 </div>
                             </div>
                         </div>
@@ -124,9 +154,9 @@
                 <div class="panel-body grey-color">
                     <div class="row">
  						<form action="{{ url_for('update_group') }}" method="post">
-						<table id="table table-striped" width="350px">
+						<table id="table table-striped" width="350px" style="margin-left: 20px;">
 						
-						            <tr>
+						          <tr>
                              			<th>Select</th>
 	                                    <th>Name</th>
 								  </tr>
@@ -140,7 +170,7 @@
 							{% endfor %}
 						</table>
 						<br>
-						<button type="submit" class="signupbtn">Delete</button>
+						<button type="submit" class="signupbtn" style="margin-left:10px">Delete</button>
 						</form>
                     </div>
                 </div>

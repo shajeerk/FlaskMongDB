@@ -104,7 +104,7 @@ class MongoDB:
                     "name": group
                     })
             else:
-                return "group already exits"
+                return False
         except Exception as e:
             print(e)
         return True
