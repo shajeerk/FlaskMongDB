@@ -37,7 +37,7 @@ def create_collection():
             "remarks":str(remarks),
             "user":session.get("user")            
         }
-        res = mongo.MongoDB().set_collection(val)
+        res = mongo.MongoDB(host=app.config['MYSQL_HOST'],port=app.config['MYSQL_PORT']).set_collection(val)
         return redirect(url_for('collections'))
     except Exception as e:
         print(e)
@@ -55,7 +55,7 @@ def account_update():
         if session.get("user"):
             oldpass = request.form["oldpass"]
             newpass = request.form["newpass"]
-            res = mongo.MongoDB().update_password(session['user'],oldpass,newpass)
+            res = mongo.MongoDB(host=app.config['MYSQL_HOST'],port=app.config['MYSQL_PORT']).update_password(session['user'],oldpass,newpass)
             if res:
                 return redirect(url_for('logout'))
             else:
@@ -70,8 +70,8 @@ def account_update():
 def collections():
     try:
         if session.get("user"):
-            grouplist = mongo.MongoDB().groups_list()
-            res = mongo.MongoDB().collections_list(session.get("user"))
+            grouplist = mongo.MongoDB(host=app.config['MYSQL_HOST'],port=app.config['MYSQL_PORT']).groups_list()
+            res = mongo.MongoDB(host=app.config['MYSQL_HOST'],port=app.config['MYSQL_PORT']).collections_list(session.get("user"))
             access_right = get_access_user()
             
             return render_template('collection.html',collections=res,groups=grouplist,user=session['user'],is_admin = access_right)
@@ -85,7 +85,7 @@ def collections():
 def collections_status():
     try:
         if session.get("user"):
-            res = mongo.MongoDB().collections_status(session.get("user"))
+            res = mongo.MongoDB(host=app.config['MYSQL_HOST'],port=app.config['MYSQL_PORT']).collections_status(session.get("user"))
             access_right = get_access_user()
             
             return render_template('collection_status.html',collections=res,user=session['user'],is_admin = access_right)
@@ -99,8 +99,8 @@ def collections_status():
 def create_group():
     try:
         name = request.form['name']
-        res = mongo.MongoDB().set_group(name)
-        groups_list = mongo.MongoDB().groups_list()
+        res = mongo.MongoDB(host=app.config['MYSQL_HOST'],port=app.config['MYSQL_PORT']).set_group(name)
+        groups_list = mongo.MongoDB(host=app.config['MYSQL_HOST'],port=app.config['MYSQL_PORT']).groups_list()
         access_right = get_access_user()
         if res:
             return redirect(url_for('groups'))
@@ -114,7 +114,7 @@ def create_group():
 def groups():
     try:
         if session.get("user"):
-            res = mongo.MongoDB().groups_list()
+            res = mongo.MongoDB(host=app.config['MYSQL_HOST'],port=app.config['MYSQL_PORT']).groups_list()
             access_right = get_access_user()
             return render_template('group.html',groups=res,user=session['user'],is_admin = access_right)
         else:
@@ -128,7 +128,7 @@ def update_group():
     try:
         if request.form:
             groups = request.form.getlist('chk')
-            res = mongo.MongoDB().delete_groups(groups)
+            res = mongo.MongoDB(host=app.config['MYSQL_HOST'],port=app.config['MYSQL_PORT']).delete_groups(groups)
         return redirect(url_for('groups'))
     except Exception as e:
         print(e)
@@ -140,7 +140,7 @@ def update_collection():
         if request.form:
             collections = request.form.getlist('chk')
             print(collections)
-            res = mongo.MongoDB().delete_collections(collections)
+            res = mongo.MongoDB(host=app.config['MYSQL_HOST'],port=app.config['MYSQL_PORT']).delete_collections(collections)
         return redirect(url_for('collections'))
     except Exception as e:
         print(e)
@@ -151,7 +151,7 @@ def update_user():
     try:
         if request.form:
             users = request.form.getlist('chk')
-            res = mongo.MongoDB().delete_users(users)
+            res = mongo.MongoDB(host=app.config['MYSQL_HOST'],port=app.config['MYSQL_PORT']).delete_users(users)
         return redirect(url_for('users'))
     except Exception as e:
         print(e)
@@ -167,7 +167,7 @@ def create_user():
     
         val={"username":str(name),"password":str(password),"group":group,"is_admin":admin}
         
-        res = mongo.MongoDB().set_user(val)
+        res = mongo.MongoDB(host=app.config['MYSQL_HOST'],port=app.config['MYSQL_PORT']).set_user(val)
         return redirect(url_for('users'))
     
     except Exception as e:
@@ -178,8 +178,8 @@ def create_user():
 def users():
     try:
         if session.get("user"):
-            grouplist = mongo.MongoDB().groups_list()
-            user_list = mongo.MongoDB().users_list()
+            grouplist = mongo.MongoDB(host=app.config['MYSQL_HOST'],port=app.config['MYSQL_PORT']).groups_list()
+            user_list = mongo.MongoDB(host=app.config['MYSQL_HOST'],port=app.config['MYSQL_PORT']).users_list()
             access_right = get_access_user()
              
             return render_template('users.html',users=user_list,groups=grouplist,user=session['user'],is_admin = access_right)
@@ -195,7 +195,7 @@ def home():
         session['user'] = request.form['username']
         session['password'] = request.form['password']
         
-        res = mongo.MongoDB().check_user(session['user'],session['password'])
+        res = mongo.MongoDB(host=app.config['MYSQL_HOST'],port=app.config['MYSQL_PORT']).check_user(session['user'],session['password'])
         access_right = get_access_user()
         
         if res:
@@ -208,7 +208,7 @@ def home():
 
 def get_access_user():
     try:
-        is_admin = mongo.MongoDB().check_access_right(session['user'])
+        is_admin = mongo.MongoDB(host=app.config['MYSQL_HOST'],port=app.config['MYSQL_PORT']).check_access_right(session['user'])
         if is_admin is None:
             access_right = False
         else:
@@ -251,5 +251,4 @@ def index():
 
 
 if __name__ == "__main__":
-    app.config['TEMPLATES_AUTO_RELOAD'] = True
-    app.run(debug=True, host='10.161.113.156', port=9000, threaded=True)
+    app.run(debug=True, host=app.config['FLASK_HOST'], port=app.config['FLASK_PORT'], threaded=True)

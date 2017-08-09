@@ -3,8 +3,8 @@ from pymongo import MongoClient
 
 class MongoDB:
     
-    def __init__(self):
-        self.client = MongoClient('10.161.113.156', 27017)
+    def __init__(self,host,port):
+        self.client = MongoClient(host,port)
         self.db = self.client.openstack
         
     
