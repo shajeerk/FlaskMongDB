@@ -165,7 +165,7 @@ def create_user():
         group = request.form["group"]
         admin = request.form.get("is_admin") or False
     
-        val={"username":str(name),"password":str(password),"group":group,"is_admin":admin}
+        val={"username":str(name),"group":group,"password":str(password),"is_admin":admin}
         
         res = get_mongo_connection().set_user(val)
         return redirect(url_for('users'))
