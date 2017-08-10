@@ -154,7 +154,7 @@
  								{% for value in users %}
                                 <tr>
                                 	
-                                	{% for k,v in value.iteritems() %}
+                                	{% for k,v in value.items() %}
                                 	{% if k == 'username' %}
                                 		<td><input type="checkbox" name="chk" value={{v}} /></td>
                                 	{% endif %}

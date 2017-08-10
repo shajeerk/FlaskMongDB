@@ -37,7 +37,7 @@ def create_collection():
             "remarks":str(remarks),
             "user":session.get("user")            
         }
-        res = mongo.MongoDB(host=app.config['MYSQL_HOST'],port=app.config['MYSQL_PORT'],db=app.config['MONGO_DB']).set_collection(val)
+        res = get_mongo_connection().set_collection(val)
         return redirect(url_for('collections'))
     except Exception as e:
         print(e)
@@ -55,7 +55,7 @@ def account_update():
         if session.get("user"):
             oldpass = request.form["oldpass"]
             newpass = request.form["newpass"]
-            res = mongo.MongoDB(host=app.config['MYSQL_HOST'],port=app.config['MYSQL_PORT'],db=app.config['MONGO_DB']).update_password(session['user'],oldpass,newpass)
+            res = get_mongo_connection().update_password(session['user'],oldpass,newpass)
             if res:
                 return redirect(url_for('logout'))
             else:
@@ -70,8 +70,8 @@ def account_update():
 def collections():
     try:
         if session.get("user"):
-            grouplist = mongo.MongoDB(host=app.config['MYSQL_HOST'],port=app.config['MYSQL_PORT'],db=app.config['MONGO_DB']).groups_list()
-            res = mongo.MongoDB(host=app.config['MYSQL_HOST'],port=app.config['MYSQL_PORT'],db=app.config['MONGO_DB']).collections_list(session.get("user"))
+            grouplist = get_mongo_connection().groups_list()
+            res = get_mongo_connection().collections_list(session.get("user"))
             access_right = get_access_user()
             
             return render_template('collection.html',collections=res,groups=grouplist,user=session['user'],is_admin = access_right)
@@ -85,7 +85,7 @@ def collections():
 def collections_status():
     try:
         if session.get("user"):
-            res = mongo.MongoDB(host=app.config['MYSQL_HOST'],port=app.config['MYSQL_PORT'],db=app.config['MONGO_DB']).collections_status(session.get("user"))
+            res = get_mongo_connection().collections_status(session.get("user"))
             access_right = get_access_user()
             
             return render_template('collection_status.html',collections=res,user=session['user'],is_admin = access_right)
@@ -99,8 +99,8 @@ def collections_status():
 def create_group():
     try:
         name = request.form['name']
-        res = mongo.MongoDB(host=app.config['MYSQL_HOST'],port=app.config['MYSQL_PORT'],db=app.config['MONGO_DB']).set_group(name)
-        groups_list = mongo.MongoDB(host=app.config['MYSQL_HOST'],port=app.config['MYSQL_PORT'],db=app.config['MONGO_DB']).groups_list()
+        res = get_mongo_connection().set_group(name)
+        groups_list = get_mongo_connection().groups_list()
         access_right = get_access_user()
         if res:
             return redirect(url_for('groups'))
@@ -114,7 +114,7 @@ def create_group():
 def groups():
     try:
         if session.get("user"):
-            res = mongo.MongoDB(host=app.config['MYSQL_HOST'],port=app.config['MYSQL_PORT'],db=app.config['MONGO_DB']).groups_list()
+            res = get_mongo_connection().groups_list()
             access_right = get_access_user()
             return render_template('group.html',groups=res,user=session['user'],is_admin = access_right)
         else:
@@ -128,7 +128,7 @@ def update_group():
     try:
         if request.form:
             groups = request.form.getlist('chk')
-            res = mongo.MongoDB(host=app.config['MYSQL_HOST'],port=app.config['MYSQL_PORT'],db=app.config['MONGO_DB']).delete_groups(groups)
+            res = get_mongo_connection().delete_groups(groups)
         return redirect(url_for('groups'))
     except Exception as e:
         print(e)
@@ -140,7 +140,7 @@ def update_collection():
         if request.form:
             collections = request.form.getlist('chk')
             print(collections)
-            res = mongo.MongoDB(host=app.config['MYSQL_HOST'],port=app.config['MYSQL_PORT'],db=app.config['MONGO_DB']).delete_collections(collections)
+            res = get_mongo_connection().delete_collections(collections)
         return redirect(url_for('collections'))
     except Exception as e:
         print(e)
@@ -151,7 +151,7 @@ def update_user():
     try:
         if request.form:
             users = request.form.getlist('chk')
-            res = mongo.MongoDB(host=app.config['MYSQL_HOST'],port=app.config['MYSQL_PORT'],db=app.config['MONGO_DB']).delete_users(users)
+            res = get_mongo_connection().delete_users(users)
         return redirect(url_for('users'))
     except Exception as e:
         print(e)
@@ -167,7 +167,7 @@ def create_user():
     
         val={"username":str(name),"password":str(password),"group":group,"is_admin":admin}
         
-        res = mongo.MongoDB(host=app.config['MYSQL_HOST'],port=app.config['MYSQL_PORT'],db=app.config['MONGO_DB']).set_user(val)
+        res = get_mongo_connection().set_user(val)
         return redirect(url_for('users'))
     
     except Exception as e:
@@ -178,8 +178,8 @@ def create_user():
 def users():
     try:
         if session.get("user"):
-            grouplist = mongo.MongoDB(host=app.config['MYSQL_HOST'],port=app.config['MYSQL_PORT'],db=app.config['MONGO_DB']).groups_list()
-            user_list = mongo.MongoDB(host=app.config['MYSQL_HOST'],port=app.config['MYSQL_PORT'],db=app.config['MONGO_DB']).users_list()
+            grouplist = get_mongo_connection().groups_list()
+            user_list = get_mongo_connection().users_list()
             access_right = get_access_user()
              
             return render_template('users.html',users=user_list,groups=grouplist,user=session['user'],is_admin = access_right)
@@ -195,7 +195,7 @@ def home():
         session['user'] = request.form['username']
         session['password'] = request.form['password']
         
-        res = mongo.MongoDB(host=app.config['MYSQL_HOST'],port=app.config['MYSQL_PORT'],db=app.config['MONGO_DB']).check_user(session['user'],session['password'])
+        res = get_mongo_connection().check_user(session['user'],session['password'])
         access_right = get_access_user()
         
         if res:
@@ -206,9 +206,17 @@ def home():
         print(e)
 
 
+def get_mongo_connection():
+    try:
+        conn = mongo.MongoDB(host=app.config['MYSQL_HOST'],port=app.config['MYSQL_PORT'],db=app.config['MONGO_DB'])
+        return conn
+    except Exception as e:
+        print(e)
+    
+    
 def get_access_user():
     try:
-        is_admin = mongo.MongoDB(host=app.config['MYSQL_HOST'],port=app.config['MYSQL_PORT'],db=app.config['MONGO_DB']).check_access_right(session['user'])
+        is_admin = get_mongo_connection().check_access_right(session['user'])
         if is_admin is None:
             access_right = False
         else:
