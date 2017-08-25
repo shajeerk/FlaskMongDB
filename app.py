@@ -13,7 +13,7 @@ def create_collection():
     try:
         name = request.form['name']
         address = request.form["address"]
-        group = get_user_group()
+        group = get_user_group()#get the user group
         phone = request.form.get("phone")
         care_of = request.form.get("care_of")
         zakath_offer = request.form.get("zakath_offer")
