@@ -13,7 +13,7 @@ def create_collection():
     try:
         name = request.form['name']
         address = request.form["address"]
-        group = request.form["group"]
+        group = get_user_group()
         phone = request.form.get("phone")
         care_of = request.form.get("care_of")
         zakath_offer = request.form.get("zakath_offer")
@@ -44,6 +44,16 @@ def create_collection():
     except Exception as e:
         print(e)
 
+
+def get_user_group():
+    try:
+        if session.get("user"):
+            res = get_mongo_connection().get_group_from_user(session.get("user")).get('group')
+            return res
+        else:
+            return render_template('login.html', error = "Your Session Expired")
+    except Exception as e:
+        print(e)
 
 @app.route('/account')
 def account():

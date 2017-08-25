@@ -125,7 +125,7 @@ class MongoDB:
     def collections_status(self,user):
         l1 = []
         try:
-            res = self.db.collection.find({"user":user}, {"name":1,"address":1,"phone":1,"care_of":1,"zakath_offer":1,"zakath_collected":1,"wf_offer":1,"wf_collected":1,"receipt_no":1,"payment_mode":1,"remarks":1,"_id":0})
+            res = self.db.collection.find({"user":user}, {"name":1,"address":1,"phone":1,"care_of":1,"zakath_offer":1,"zakath_collected":1,"wf_offer":1,"wf_collected":1,"receipt_no":1,"payment_mode":1,"remarks":1,"group":1,"_id":0})
             for i in res:
                 l1.append(i)
             return l1
@@ -164,3 +164,14 @@ class MongoDB:
                 return False
         except Exception as e:
             print(e)
+            
+            
+    def get_group_from_user(self,user_name):
+        try:
+            res = self.db.users.find_one({"username":user_name}, {"group":1,"_id":0})
+            return res
+        except Exception as e:
+            print(e)
+            
+        
+            
