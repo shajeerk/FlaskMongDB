@@ -103,19 +103,36 @@
                      <div class="row" style="padding-left: 25px;">
                      	<table id="table table-striped" width="350px">
                              	  <tr>
-                             			<th>Name</th>
-	                                    <th>C2-Collected Amount</th>
-	                                    <th>C2-CareOf</th>
-	                                    <th>C1-Collected Amount</th>
-	                                    <th>Phone</th>
-	                                    <th>C1-CareOf</th>
+                             		<th>Select</th>
+									<th>Name</th>
+									<th>Address</th>
+									<th>Phone</th>
+									<th>Care Of</th>
+									<th>Zakath Offer</th>
+									<th>Zakath Collected</th>
+									<th>WF Offer</th>
+									<th>WF Collected</th>
+									<th>Receipt No</th>
+									<th>Payment Mode</th>
+									<th>Remarks</th> 
+									<th>Group</th>                       
 								  </tr>
 								  
  								{% for value in collections %}
-                                <tr>
-                                	{% for k,v in value.items() %}
-                                    <td>{{v}}</td>
-                                    {% endfor %}
+                                <tr>	
+                                	<td><input type="checkbox" name="chk" value={{value}} /></td>
+                                	<td>{{value.get('name')}}</td>
+                                    <td>{{value.get('address')}}</td>
+                                    <td>{{value.get('phone')}}</td>
+                                    <td>{{value.get('care_of')}}</td>
+                                    <td>{{value.get('zakath_offer')}}</td>
+                                    <td>{{value.get('zakath_collected')}}</td>
+                                    <td>{{value.get('wf_offer')}}</td>
+                                    <td>{{value.get('wf_collected')}}</td>
+                                    <td>{{value.get('receipt_no')}}</td>
+                                    <td>{{value.get('payment_mode')}}</td>
+                                    <td>{{value.get('remarks')}}</td>
+                                    <td>{{value.get('group')}}</td>
                                 </tr>
                                 {% endfor %}
 

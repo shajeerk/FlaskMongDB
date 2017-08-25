@@ -105,42 +105,42 @@
                             <div class="panel-body grey-color">
                                 <div class="row">
                                     <label><b style="padding-left: 20px; color: black;">Name</b></label>
-                                    <input type="text" name="name" style="width: 322px;" required>
+                                    <input type="text" name="name" style="width: 322px; margin-left: 60px;" required><br><br>
                                     
                                     <label><b style="padding-left: 20px; color: black;">Address</b></label>
-                                    <input type="text" name="address" style="width: 322px;" required>   <br><br>                             
+                                    <input type="text" name="address" style="width: 322px; margin-left: 60px;" required>   <br>  <br>                        
                                     
                                     <label><b style="padding-left: 20px; color: black;">Phone</b></label>
-                                    <input type="text" name="phone" style="width: 322px;" required>
+                                    <input type="text" name="phone" style="width: 322px; margin-left: 60px;" required><br><br>
+                                    
+                                    <label><b style="padding-left: 20px; color: black;">Care Of</b></label>
+                                    <input type="text" name="care_of" style="width: 322px; margin-left: 60px;" required><br> <br>
+                                    
+                                    <label><b style="padding-left: 20px; color: black;">Zakath Offer</b></label>
+                                    <input type="text" name="zakath_offer" style="width: 322px; margin-left: 60px;" required> <br><br>
+                                    
+                                    <label><b style="padding-left: 20px; color: black;">Zakath Collected</b></label>
+                                    <input type="text" name="zakath_collected" style="width: 322px; margin-left: 60px;" required> <br><br>
                                     
                                     
+                                    <label><b style="padding-left: 20px; color: black;">WF Offer</b></label>
+                                    <input type="text" name="wf_offer" style="width: 322px; margin-left: 60px;" required><br> <br>                                
                                     
-                                    <label><b style="padding-left: 20px; color: black;">Offer Amount</b></label>
-                                    <input type="text" name="offer_amt" style="width: 322px;" required><br><br> 
+                                                                        
                                     
+                                     <label><b style="padding-left: 20px; color: black;">WF Collected</b></label>
+                                    <input type="text" name="wf_collected" style="width: 322px; margin-left: 60px;" required> <br><br>
                                     
-                                    <label><b style="padding-left: 20px; color: black;">C1-Care Of</b></label>
-                                    <input type="text" name="c1_care_of" style="width: 322px;" required>
-                                    
-                                    
-                                    <label><b style="padding-left: 20px; color: black;">C1-Collected Amount</b></label>
-                                    <input type="text" name="c1_collected_amt" style="width: 322px;" required><br><br> 
-                                    
-                                    
-                                     <label><b style="padding-left: 20px; color: black;">C2-Care Of</b></label>
-                                    <input type="text" name="c2_care_of" style="width: 322px;" required>                                    
-                                    
-                                    
-                                    <label><b style="padding-left: 20px; color: black;">C2-Collected Amount</b></label>
-                                    <input type="text" name="c2_collected_amt" style="width: 322px;" required><br><br>
+                                    <label><b style="padding-left: 20px; color: black;">Receipt No</b></label>
+                                    <input type="text" name="receipt_no" style="width: 322px; margin-left: 60px;" required><br><br>
                                     
                                     
                                      <label><b style="padding-left: 20px; color: black;">Payment Mode</b></label>
-                                    <input type="text" name="payment_mode" style="width: 322px;" required>
+                                    <input type="text" name="payment_mode" style="width: 322px; margin-left: 60px;" required><br><br>
                                     
                                     
                                     <label><b style="padding-left: 20px; color: black;">Remarks</b></label>
-                                    <input type="text" name="remarks" style="width: 322px;" required><br><br> 
+                                    <input type="text" name="remarks" style="width: 322px; margin-left: 60px;" required><br><br>
                                     
                                     
                                     <label><b style="padding-left: 20px; color: black;">Group Name</b></label>
@@ -159,7 +159,7 @@
                     </div>
                 </div>
             </form>
-               <div class="panel panel-default">
+ <!--               <div class="panel panel-default">
                 <div class="panel-heading">
                     <span class="heading">Existing Groups</span>
                 </div>
@@ -174,10 +174,12 @@
 									<th>Address</th>
 									<th>Phone</th>
 									<th>Offer Amount</th>
-									<th>C1-CareOf</th>
-									<th>C1-Collected Amount</th>
-									<th>C2-CareOf</th>
-									<th>C2-Collected Amount</th>
+									<th>Care Of</th>
+									<th>Zakath Offer</th>
+									<th>Zakath Collected</th>
+									<th>WF Offer</th>
+									<th>WF Collected</th>
+									<th>Receipt No</th>
 									<th>Payment Mode</th>
 									<th>Remarks</th>
 									<th>Group Name</th>
@@ -190,11 +192,12 @@
                                     <td>{{value.get('name')}}</td>
                                     <td>{{value.get('address')}}</td>
                                     <td>{{value.get('phone')}}</td>
-                                    <td>{{value.get('offer_amt')}}</td>
-                                    <td>{{value.get('c1_care_of')}}</td>
-                                    <td>{{value.get('c1_collected_amt')}}</td>
-                                    <td>{{value.get('c2_care_of')}}</td>
-                                    <td>{{value.get('c2_collected_amt')}}</td>
+                                    <td>{{value.get('care_of')}}</td>
+                                    <td>{{value.get('zakath_offer')}}</td>
+                                    <td>{{value.get('zakath_collected')}}</td>
+                                    <td>{{value.get('wf_offer')}}</td>
+                                    <td>{{value.get('wf_collected')}}</td>
+                                    <td>{{value.get('receipt_no')}}</td>
                                     <td>{{value.get('payment_mode')}}</td>
                                     <td>{{value.get('remarks')}}</td>
                                     <td>{{value.get('group')}}</td>
@@ -207,7 +210,7 @@
 						</form>
                     </div>
                 </div>
-            </div>
+            </div> -->
            
 
     <div>

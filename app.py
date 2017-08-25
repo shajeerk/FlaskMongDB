@@ -15,26 +15,28 @@ def create_collection():
         address = request.form["address"]
         group = request.form["group"]
         phone = request.form.get("phone")
-        offer_amt = request.form.get("offer_amt")
-        c1_care_of = request.form.get("c1_care_of")
-        c1_collected_amt = request.form.get("c1_collected_amt")
-        c2_care_of = request.form.get("c2_care_of")
-        c2_collected_amt = request.form.get("c2_collected_amt")
+        care_of = request.form.get("care_of")
+        zakath_offer = request.form.get("zakath_offer")
+        zakath_collected = request.form.get("zakath_collected")
+        wf_offer = request.form.get("wf_offer")
+        wf_collected = request.form.get("wf_collected")
+        receipt_no = request.form.get("receipt_no")
         payment_mode = request.form.get("payment_mode")
         remarks = request.form.get("remarks")
     
         val={
             "name":str(name),
             "address":str(address),
-            "group":str(group),
             "phone":str(phone),
-            "offer_amt":str(offer_amt),
-            "c1_care_of":str(c1_care_of),
-            "c1_collected_amt":str(c1_collected_amt),
-            "c2_care_of":str(c2_care_of),            
-            "c2_collected_amt":str(c2_collected_amt),
+            "care_of":str(care_of),
+            "zakath_offer":str(zakath_offer),
+            "zakath_collected":str(zakath_collected),
+            "wf_offer":str(wf_offer),            
+            "wf_collected":str(wf_collected),
             "payment_mode":str(payment_mode),
+            "receipt_no":str(receipt_no),
             "remarks":str(remarks),
+            "group":str(group),
             "user":session.get("user")            
         }
         res = get_mongo_connection().set_collection(val)

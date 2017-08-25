@@ -125,7 +125,7 @@ class MongoDB:
     def collections_status(self,user):
         l1 = []
         try:
-            res = self.db.collection.find({"user":user}, {"name":1,"phone":1,"c1_care_of":1,"c1_collected_amt":1,"c2_care_of":1,"c2_collected_amt":1,"_id":0})
+            res = self.db.collection.find({"user":user}, {"name":1,"address":1,"phone":1,"care_of":1,"zakath_offer":1,"zakath_collected":1,"wf_offer":1,"wf_collected":1,"receipt_no":1,"payment_mode":1,"remarks":1,"_id":0})
             for i in res:
                 l1.append(i)
             return l1
