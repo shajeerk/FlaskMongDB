@@ -89,7 +89,7 @@ class MongoDB:
     def delete_collections(self,val):
         try:
             for i in val:
-                res = self.db.collections.remove({"phone":str(i)})
+                res = self.db.collection.remove({"phone":str(i)})
             return True
         except Exception as e:
             print(e)
@@ -113,7 +113,7 @@ class MongoDB:
     def collections_list(self,user):
         l1 = []
         try:
-            res = self.db.collections.find({"user":user}, {"_id":0})
+            res = self.db.collection.find({"user":user}, {"_id":0})
             for i in res:
                 l1.append(i)
             return l1
@@ -125,7 +125,7 @@ class MongoDB:
     def collections_status(self,user):
         l1 = []
         try:
-            res = self.db.collections.find({"user":user}, {"name":1,"phone":1,"c1_care_of":1,"c1_collected_amt":1,"c2_care_of":1,"c2_collected_amt":1,"_id":0})
+            res = self.db.collection.find({"user":user}, {"name":1,"phone":1,"c1_care_of":1,"c1_collected_amt":1,"c2_care_of":1,"c2_collected_amt":1,"_id":0})
             for i in res:
                 l1.append(i)
             return l1
@@ -136,7 +136,7 @@ class MongoDB:
     
     def check_collection(self,phone):
         try:
-            res = self.db.collections.find_one({"phone":str(phone)})
+            res = self.db.collection.find_one({"phone":str(phone)})
             return res
         except Exception as e:
             print(e)
@@ -146,7 +146,7 @@ class MongoDB:
         try:
             res = self.check_collection(val.get("phone"))
             if not res:
-                res = self.db.collections.insert_one(val)
+                res = self.db.collection.insert_one(val)
             else:
                 return "Phone already exists"
         except Exception as e:
